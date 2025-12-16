@@ -401,6 +401,25 @@ def process_pptx(model, categories, pptx_bytes, progress_callback=None) -> bytes
     return output.read(), len(matched_list), len(unused_groups)
 
 # ============================================================================
+# Template Management
+# ============================================================================
+TEMPLATE_PATH = Path(__file__).parent / "template.pptx"
+
+def get_saved_template() -> bytes:
+    """保存されたテンプレートを取得"""
+    if TEMPLATE_PATH.exists():
+        return TEMPLATE_PATH.read_bytes()
+    return None
+
+def save_template(file_bytes: bytes):
+    """テンプレートを保存"""
+    try:
+        TEMPLATE_PATH.write_bytes(file_bytes)
+        return True
+    except:
+        return False
+
+# ============================================================================
 # Main UI
 # ============================================================================
 st.markdown('<h1 class="main-header">📊 PPTX Organizer</h1>', unsafe_allow_html=True)
@@ -408,14 +427,34 @@ st.caption("審査基準に基づいてPowerPointスライドを自動整理")
 
 # サイドバー
 with st.sidebar:
-    st.header("📋 使い方")
-    st.markdown("""
-    1. **審査基準ファイル**をアップロード
-       - PDF / Excel / Word / 画像
-    2. **PPTXテンプレート**をアップロード
-    3. **処理開始**ボタンをクリック
-    4. 完成したPPTXを**ダウンロード**
-    """)
+    st.header("⚙️ テンプレート設定")
+    
+    # 現在のテンプレート状態
+    saved_template = get_saved_template()
+    if saved_template:
+        st.success("✅ テンプレート設定済み")
+        st.caption(f"サイズ: {len(saved_template) / 1024:.1f} KB")
+    else:
+        st.warning("⚠️ テンプレート未設定")
+    
+    # テンプレートアップロード
+    st.markdown("---")
+    st.subheader("📤 テンプレート更新")
+    template_upload = st.file_uploader(
+        "新しいテンプレートをアップロード",
+        type=['pptx'],
+        key="template_upload",
+        help="一度アップロードすると次回以降は自動で使用されます"
+    )
+    
+    if template_upload:
+        if st.button("💾 テンプレートを保存", use_container_width=True):
+            template_bytes = template_upload.read()
+            if save_template(template_bytes):
+                st.success("✅ テンプレートを保存しました！")
+                st.rerun()
+            else:
+                st.error("保存に失敗しました")
     
     st.markdown("---")
     st.header("✨ 機能")
@@ -427,33 +466,29 @@ with st.sidebar:
     """)
 
 # メインエリア
-col1, col2 = st.columns(2)
+st.subheader("📁 審査基準ファイル")
+criteria_file = st.file_uploader(
+    "審査基準をアップロード（PDF / Excel / Word / 画像）",
+    type=['pdf', 'xlsx', 'xls', 'docx', 'doc', 'png', 'jpg', 'jpeg'],
+    key="criteria"
+)
+if criteria_file:
+    file_type = detect_file_type(criteria_file.name)
+    st.success(f"✅ {criteria_file.name} ({file_type})")
 
-with col1:
-    st.subheader("📁 審査基準ファイル")
-    criteria_file = st.file_uploader(
-        "審査基準をアップロード",
-        type=['pdf', 'xlsx', 'xls', 'docx', 'doc', 'png', 'jpg', 'jpeg'],
-        key="criteria"
-    )
-    if criteria_file:
-        file_type = detect_file_type(criteria_file.name)
-        st.success(f"✅ {criteria_file.name} ({file_type})")
+# テンプレート状態表示
+st.markdown("---")
+template_to_use = get_saved_template()
 
-with col2:
-    st.subheader("📊 PPTXテンプレート")
-    pptx_file = st.file_uploader(
-        "PowerPointをアップロード",
-        type=['pptx'],
-        key="pptx"
-    )
-    if pptx_file:
-        st.success(f"✅ {pptx_file.name}")
+if template_to_use:
+    st.info("📊 保存済みテンプレートを使用します（サイドバーで変更可能）")
+else:
+    st.warning("⚠️ テンプレートがありません。サイドバーからアップロードしてください。")
 
 # 処理ボタン
 st.markdown("---")
 
-if criteria_file and pptx_file:
+if criteria_file and template_to_use:
     if st.button("🚀 処理開始", type="primary", use_container_width=True):
         try:
             model = setup_gemini()
@@ -477,16 +512,15 @@ if criteria_file and pptx_file:
             st.info(f"📋 {len(categories)} 件のカテゴリを抽出しました")
             
             # PPTX処理
-            pptx_bytes = pptx_file.read()
             result_bytes, matched_count, unused_count = process_pptx(
-                model, categories, pptx_bytes, update_progress
+                model, categories, template_to_use, update_progress
             )
             
             # 結果表示
             st.success(f"✅ 処理完了！ マッチ: {matched_count}件 / 未使用: {unused_count}件")
             
             # ダウンロードボタン
-            output_filename = f"{Path(pptx_file.name).stem}_organized.pptx"
+            output_filename = f"organized_{criteria_file.name.split('.')[0]}.pptx"
             st.download_button(
                 label="📥 完成PPTXをダウンロード",
                 data=result_bytes,
@@ -505,9 +539,12 @@ if criteria_file and pptx_file:
             st.error(f"エラーが発生しました: {e}")
             import traceback
             st.code(traceback.format_exc())
+elif not template_to_use:
+    st.info("👈 サイドバーからテンプレートをアップロードしてください")
 else:
-    st.info("👆 両方のファイルをアップロードしてください")
+    st.info("👆 審査基準ファイルをアップロードしてください")
 
 # フッター
 st.markdown("---")
 st.caption("PPTX Organizer v5 | Powered by Google Gemini")
+
