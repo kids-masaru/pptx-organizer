@@ -427,43 +427,40 @@ st.caption("審査基準に基づいてPowerPointスライドを自動整理")
 
 # サイドバー
 with st.sidebar:
-    st.header("⚙️ テンプレート設定")
-    
-    # 現在のテンプレート状態
-    saved_template = get_saved_template()
-    if saved_template:
-        st.success("✅ テンプレート設定済み")
-        st.caption(f"サイズ: {len(saved_template) / 1024:.1f} KB")
-    else:
-        st.warning("⚠️ テンプレート未設定")
-    
-    # テンプレートアップロード
-    st.markdown("---")
-    st.subheader("📤 テンプレート更新")
-    template_upload = st.file_uploader(
-        "新しいテンプレートをアップロード",
-        type=['pptx'],
-        key="template_upload",
-        help="一度アップロードすると次回以降は自動で使用されます"
-    )
-    
-    if template_upload:
-        if st.button("💾 テンプレートを保存", use_container_width=True):
-            template_bytes = template_upload.read()
-            if save_template(template_bytes):
-                st.success("✅ テンプレートを保存しました！")
-                st.rerun()
-            else:
-                st.error("保存に失敗しました")
-    
-    st.markdown("---")
-    st.header("✨ 機能")
+    st.header("📋 使い方")
     st.markdown("""
-    - 🎯 表紙・目次は固定
-    - 📝 目次に審査基準を自動入力
-    - 🏷️ スライドタイトルを自動更新
-    - 🤖 Gemini AIで意味的マッチング
+    1. **審査基準ファイル**をアップロード
+       - PDF / Excel / Word / 画像
+    2. **処理開始**ボタンをクリック
+    3. 完成したPPTXを**ダウンロード**
     """)
+    
+    st.markdown("---")
+    
+    # テンプレート設定（折りたたみ）
+    with st.expander("⚙️ テンプレート更新", expanded=False):
+        saved_template = get_saved_template()
+        if saved_template:
+            st.success(f"✅ 設定済み（{len(saved_template) / 1024 / 1024:.1f} MB）")
+        else:
+            st.warning("⚠️ テンプレートがありません")
+        
+        st.caption("新しいテンプレートに変更する場合のみ使用")
+        template_upload = st.file_uploader(
+            "新しいテンプレート",
+            type=['pptx'],
+            key="template_upload",
+            label_visibility="collapsed"
+        )
+        
+        if template_upload:
+            if st.button("💾 更新を保存", use_container_width=True):
+                template_bytes = template_upload.read()
+                if save_template(template_bytes):
+                    st.success("✅ 更新しました！")
+                    st.rerun()
+                else:
+                    st.error("保存に失敗しました")
 
 # メインエリア
 st.subheader("📁 審査基準ファイル")
