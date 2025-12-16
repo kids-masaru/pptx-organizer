@@ -1,0 +1,8 @@
+pdfplumber
+python-pptx
+thefuzz
+python-Levenshtein
+google-generativeai
+python-dotenv
+openpyxl
+python-docx
