@@ -506,7 +506,8 @@ def process_pptx(model, categories, pptx_bytes, progress_callback=None) -> bytes
 # ============================================================================
 # Template Management
 # ============================================================================
-TEMPLATE_PATH = Path(__file__).parent / "template.pptx"
+# 永続的に保存されるテンプレートファイル
+TEMPLATE_PATH = Path(__file__).parent / "【標準提案資料】2025-10-3「アプリ用」.pptx"
 
 def get_saved_template() -> bytes:
     """保存されたテンプレートを取得"""
@@ -515,11 +516,12 @@ def get_saved_template() -> bytes:
     return None
 
 def save_template(file_bytes: bytes):
-    """テンプレートを保存"""
+    """テンプレートを永続的に保存（ファイルを上書き）"""
     try:
         TEMPLATE_PATH.write_bytes(file_bytes)
         return True
-    except:
+    except Exception as e:
+        print(f"テンプレート保存エラー: {e}")
         return False
 
 # ============================================================================
