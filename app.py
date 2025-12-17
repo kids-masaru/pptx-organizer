@@ -99,8 +99,11 @@ def detect_file_type(filename: str) -> str:
 # Category Extraction Functions
 # ============================================================================
 def extract_categories_from_pdf(file_bytes) -> list:
-    """PDFからカテゴリを抽出"""
+    """
+    PDFから大項目・小項目を含む階層構造でカテゴリを抽出
+    """
     categories = []
+    current_category = None
     
     with pdfplumber.open(io.BytesIO(file_bytes)) as pdf:
         for page in pdf.pages:
@@ -114,16 +117,46 @@ def extract_categories_from_pdf(file_bytes) -> list:
                     col0 = str(row[0]).strip() if row[0] else ""
                     col1 = str(row[1]).strip() if row[1] else ""
                     
+                    # 大項目の検出
                     if col0 and re.match(r'^\d+', col0):
                         no_match = re.match(r'^(\d+)', col0)
                         if no_match and col1:
+                            # 前のカテゴリを保存
+                            if current_category:
+                                categories.append(current_category)
+                            
                             no = int(no_match.group(1))
-                            category = col1.split('\n')[0].strip()
-                            if not any(c['No'] == no for c in categories):
-                                categories.append({'No': no, 'Category': category})
+                            main_category = col1.split('\n')[0].strip()
+                            current_category = {
+                                'No': no,
+                                'MainCategory': main_category,
+                                'SubItems': []
+                            }
+                    
+                    # 小項目の検出
+                    if len(row) >= 4 and current_category:
+                        col2 = str(row[2]).strip() if row[2] else ""
+                        col3 = str(row[3]).strip() if row[3] else ""
+                        if col2 and re.match(r'^\d+$', col2) and col3:
+                            sub_item = col3.split('\n')[0].strip()[:100]
+                            if sub_item and sub_item not in current_category['SubItems']:
+                                current_category['SubItems'].append(sub_item)
+            
+            # ページ終了時にカテゴリを保存
+            if current_category and current_category not in categories:
+                categories.append(current_category)
+                current_category = None
     
-    categories.sort(key=lambda x: x['No'])
-    return categories
+    # 重複を除去してソート
+    seen_nos = set()
+    unique_categories = []
+    for cat in categories:
+        if cat['No'] not in seen_nos:
+            seen_nos.add(cat['No'])
+            unique_categories.append(cat)
+    
+    unique_categories.sort(key=lambda x: x['No'])
+    return unique_categories
 
 
 def extract_categories_from_excel(file_bytes) -> list:
@@ -229,21 +262,62 @@ def get_slide_first_text(slide) -> str:
     return ""
 
 
+def get_slide_full_content(slide) -> str:
+    """スライドの全テキスト内容を取得"""
+    texts = []
+    for shape in slide.shapes:
+        if shape.has_text_frame:
+            text = shape.text_frame.text.strip()
+            if text and len(text) > 2:
+                texts.append(text)
+    return "\n".join(texts)[:500]
+
+
 def populate_toc(prs, categories, toc_slide_index=1):
-    """目次スライドにカテゴリを入力"""
+    """目次スライドにカテゴリを階層構造で入力"""
+    from pptx.util import Pt
+    
     try:
         toc_slide = prs.slides[toc_slide_index]
-        toc_text = "\n".join([f"{cat['No']}. {cat['Category']}" for cat in categories])
+        
+        # 最も大きいテキストフレームを探す
+        target_shape = None
+        max_area = 0
         
         for shape in toc_slide.shapes:
             if shape.has_text_frame:
+                area = shape.width * shape.height
                 existing_text = shape.text_frame.text.strip()
-                if existing_text and (existing_text.isdigit() or re.match(r'^[\d\s\n]+$', existing_text)):
-                    shape.text_frame.clear()
-                    p = shape.text_frame.paragraphs[0]
-                    p.text = toc_text
-                    return True
-        return False
+                if len(existing_text) > 10 and area > max_area:
+                    max_area = area
+                    target_shape = shape
+        
+        if not target_shape:
+            return False
+        
+        tf = target_shape.text_frame
+        tf.clear()
+        
+        for idx, cat in enumerate(categories):
+            if idx == 0:
+                p = tf.paragraphs[0]
+            else:
+                p = tf.add_paragraph()
+            
+            main_text = cat.get('MainCategory', cat.get('Category', ''))
+            p.text = f"{cat['No']}. {main_text}"
+            p.font.bold = True
+            p.font.size = Pt(11)
+            
+            # 小項目を追加
+            for sub_item in cat.get('SubItems', [])[:3]:
+                sub_p = tf.add_paragraph()
+                sub_p.text = f"  ・ {sub_item[:40]}"
+                sub_p.level = 1
+                sub_p.font.bold = False
+                sub_p.font.size = Pt(9)
+        
+        return True
     except:
         return False
 
@@ -259,11 +333,30 @@ def update_slide_title(slide, new_title: str):
 
 
 def create_matching_with_ai(model, categories, groups) -> dict:
-    """AIでマッチング"""
-    cat_list = "\n".join([f"CAT{cat['No']}: {cat['Category']}" for cat in categories])
-    grp_list = "\n".join([f"GRP{i}: {g['title']}" for i, g in enumerate(groups)])
+    """AIでマッチング（階層構造・コンテンツ考慮）"""
+    # 階層構造を含むカテゴリリスト
+    cat_entries = []
+    for cat in categories:
+        main_cat = cat.get('MainCategory', cat.get('Category', ''))
+        entry = f"CAT{cat['No']}: 【大項目】 {main_cat}"
+        sub_items = cat.get('SubItems', [])
+        if sub_items:
+            entry += f"\n  小項目: {', '.join(sub_items[:3])}"
+        cat_entries.append(entry)
+    cat_list = "\n".join(cat_entries)
+    
+    # グループ情報（タイトル + 内容）
+    grp_entries = []
+    for i, g in enumerate(groups):
+        entry = f"GRP{i}: {g['title']}"
+        content = g.get('content', '')[:200]
+        if content:
+            entry += f"\n  内容: {content}..."
+        grp_entries.append(entry)
+    grp_list = "\n".join(grp_entries)
     
     prompt = f"""審査基準カテゴリとPPTXスライドグループをマッチングしてください。
+大項目と小項目の両方を考慮してください。
 
 ## カテゴリ一覧
 {cat_list}
@@ -319,19 +412,28 @@ def process_pptx(model, categories, pptx_bytes, progress_callback=None) -> bytes
     for idx in range(FIXED_SLIDES, total_slides):
         slide = prs.slides[idx]
         title = get_slide_title(slide)
+        content = get_slide_full_content(slide)  # スライドの全内容を取得
         
         if title:
             if current_group:
                 groups.append(current_group)
-            current_group = {'title': title, 'slides': [idx], 'first_index': idx}
+            current_group = {
+                'title': title, 
+                'slides': [idx], 
+                'first_index': idx,
+                'content': content
+            }
         else:
             if current_group:
                 current_group['slides'].append(idx)
+                current_group['content'] = (current_group.get('content', '') + '\n' + content)[:500]
             else:
                 first_text = get_slide_first_text(slide)
                 current_group = {
                     'title': first_text[:50] if first_text else f"[Untitled {idx}]",
-                    'slides': [idx], 'first_index': idx
+                    'slides': [idx], 
+                    'first_index': idx,
+                    'content': content
                 }
     
     if current_group:
@@ -352,10 +454,11 @@ def process_pptx(model, categories, pptx_bytes, progress_callback=None) -> bytes
     
     for cat in categories:
         pdf_no = cat['No']
+        main_cat = cat.get('MainCategory', cat.get('Category', ''))
         if pdf_no in mapping:
             pptx_idx = mapping[pdf_no]
             if pptx_idx < len(groups):
-                matched_list.append((pdf_no, cat['Category'], groups[pptx_idx]))
+                matched_list.append((pdf_no, main_cat, groups[pptx_idx]))
                 used_groups.add(pptx_idx)
     
     unused_groups = [g for i, g in enumerate(groups) if i not in used_groups]
@@ -365,7 +468,7 @@ def process_pptx(model, categories, pptx_bytes, progress_callback=None) -> bytes
     
     matched_list.sort(key=lambda x: x[0])
     for pdf_no, category_name, group in matched_list:
-        # タイトル更新
+        # タイトル更新（大項目名を使用）
         first_slide_idx = group['slides'][0]
         new_title = f"{pdf_no}. {category_name}"
         update_slide_title(prs.slides[first_slide_idx], new_title)
@@ -463,7 +566,6 @@ with st.sidebar:
                     st.error("保存に失敗しました")
 
 # メインエリア
-st.subheader("📁 審査基準ファイル")
 criteria_file = st.file_uploader(
     "審査基準をアップロード（PDF / Excel / Word / 画像）",
     type=['pdf', 'xlsx', 'xls', 'docx', 'doc', 'png', 'jpg', 'jpeg'],
@@ -473,13 +575,10 @@ if criteria_file:
     file_type = detect_file_type(criteria_file.name)
     st.success(f"✅ {criteria_file.name} ({file_type})")
 
-# テンプレート状態表示
-st.markdown("---")
+# テンプレート状態確認（表示なし）
 template_to_use = get_saved_template()
 
-if template_to_use:
-    st.info("📊 保存済みテンプレートを使用します（サイドバーで変更可能）")
-else:
+if not template_to_use:
     st.warning("⚠️ テンプレートがありません。サイドバーからアップロードしてください。")
 
 # 処理ボタン

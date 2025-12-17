@@ -78,10 +78,21 @@ def detect_file_type(file_path: str) -> str:
     return type_map.get(ext, 'unknown')
 
 
-def extract_categories_from_pdf(pdf_path: str) -> List[Dict[str, str]]:
-    """審査基準表PDFからカテゴリを抽出"""
+def extract_categories_from_pdf(pdf_path: str) -> List[Dict]:
+    """
+    審査基準表PDFから大項目・小項目を含む階層構造でカテゴリを抽出
+    
+    Returns:
+        List[Dict]: 各要素は以下の構造
+        {
+            'No': int,
+            'MainCategory': str,  # 大項目名
+            'SubItems': List[str]  # 小項目のリスト
+        }
+    """
     logger.info(f"PDFを読み込み中: {pdf_path}")
     categories = []
+    current_category = None
     
     try:
         with pdfplumber.open(pdf_path) as pdf:
@@ -100,31 +111,65 @@ def extract_categories_from_pdf(pdf_path: str) -> List[Dict[str, str]]:
                         col0 = str(row[0]).strip() if row[0] else ""
                         col1 = str(row[1]).strip() if row[1] else ""
                         
-                        # 大項目の検出
+                        # 大項目の検出（数字で始まる行）
                         if col0 and re.match(r'^\d+', col0):
                             no_match = re.match(r'^(\d+)', col0)
                             if no_match and col1:
-                                no = int(no_match.group(1))
-                                lines = col1.split('\n')
-                                category = lines[0].strip()
+                                # 前のカテゴリを保存
+                                if current_category:
+                                    categories.append(current_category)
                                 
-                                if not any(c['No'] == no for c in categories):
-                                    categories.append({
-                                        'No': no,
-                                        'Category': category
-                                    })
+                                no = int(no_match.group(1))
+                                # col1から大項目名を抽出（最初の行）
+                                lines = col1.split('\n')
+                                main_category = lines[0].strip()
+                                
+                                # 新しいカテゴリを開始
+                                current_category = {
+                                    'No': no,
+                                    'MainCategory': main_category,
+                                    'SubItems': []
+                                }
+                        
+                        # 小項目の検出（col2に数字、col3に内容がある行）
+                        if len(row) >= 4 and current_category:
+                            col2 = str(row[2]).strip() if row[2] else ""
+                            col3 = str(row[3]).strip() if row[3] else ""
+                            
+                            # col2 が小項目番号（1, 2, 3等）で col3 に内容がある場合
+                            if col2 and re.match(r'^\d+$', col2) and col3:
+                                # 既存の小項目と重複しないかチェック
+                                sub_item = col3.split('\n')[0].strip()[:100]
+                                if sub_item and sub_item not in current_category['SubItems']:
+                                    current_category['SubItems'].append(sub_item)
+                    
+                # 最後のカテゴリを保存
+                if current_category and current_category not in categories:
+                    categories.append(current_category)
+                    current_category = None
                             
     except Exception as e:
         logger.error(f"PDF読み込みエラー: {e}")
         raise
     
-    categories.sort(key=lambda x: x['No'])
-    
-    logger.info(f"抽出完了: {len(categories)} 件のカテゴリ")
+    # 重複を除去してソート
+    seen_nos = set()
+    unique_categories = []
     for cat in categories:
-        logger.info(f"  No.{cat['No']:2d}: {cat['Category']}")
+        if cat['No'] not in seen_nos:
+            seen_nos.add(cat['No'])
+            unique_categories.append(cat)
     
-    return categories
+    unique_categories.sort(key=lambda x: x['No'])
+    
+    logger.info(f"抽出完了: {len(unique_categories)} 件のカテゴリ")
+    for cat in unique_categories:
+        logger.info(f"  No.{cat['No']:2d}: {cat['MainCategory']}")
+        for sub in cat.get('SubItems', []):
+            logger.info(f"       - {sub[:50]}...")
+    
+    return unique_categories
+
 
 
 def extract_categories_from_excel(excel_path: str) -> List[Dict[str, str]]:
@@ -248,6 +293,19 @@ def get_slide_first_text(slide) -> str:
     return ""
 
 
+def get_slide_full_content(slide) -> str:
+    """
+    スライドの全テキスト内容を取得（AIマッチング精度向上用）
+    """
+    texts = []
+    for shape in slide.shapes:
+        if shape.has_text_frame:
+            text = shape.text_frame.text.strip()
+            if text and len(text) > 2:  # 2文字以上のテキストのみ
+                texts.append(text)
+    return "\n".join(texts)[:500]  # 最大500文字
+
+
 def get_slide_groups(prs) -> List[Dict]:
     """スライドをグループ化（タイトル付きスライドを先頭に）"""
     groups = []
@@ -287,43 +345,62 @@ def get_slide_groups(prs) -> List[Dict]:
 def create_matching_with_ai(model, pdf_categories: List[Dict], pptx_groups: List[Dict]) -> Dict[int, int]:
     """
     Gemini AIを使用してPDFカテゴリとPPTXグループをマッチング。
+    大項目・小項目とスライドの全テキスト内容を考慮してマッチング精度を向上。
     
     Returns:
         Dict[int, int]: {pdf_no: pptx_group_index} のマッピング
     """
     logger.info("")
     logger.info("=" * 60)
-    logger.info("Gemini AI マッチング開始")
+    logger.info("Gemini AI マッチング開始（精度向上版）")
     logger.info("=" * 60)
     
-    # プロンプト用のデータを準備
-    pdf_list = "\n".join([f"PDF{cat['No']}: {cat['Category']}" for cat in pdf_categories])
-    pptx_list = "\n".join([f"PPTX{i}: {g['title']}" for i, g in enumerate(pptx_groups)])
+    # プロンプト用のデータを準備（階層構造を含める）
+    pdf_entries = []
+    for cat in pdf_categories:
+        main_cat = cat.get('MainCategory', cat.get('Category', ''))
+        sub_items = cat.get('SubItems', [])
+        entry = f"PDF{cat['No']}: 【大項目】 {main_cat}"
+        if sub_items:
+            entry += f"\n  小項目: {', '.join(sub_items[:3])}"
+        pdf_entries.append(entry)
+    pdf_list = "\n".join(pdf_entries)
+    
+    # PPTXグループ情報（タイトル + 内容の要約）
+    pptx_entries = []
+    for i, g in enumerate(pptx_groups):
+        content_summary = g.get('content', '')[:200] if g.get('content') else ''
+        entry = f"PPTX{i}: {g['title']}"
+        if content_summary:
+            entry += f"\n  内容: {content_summary}..."
+        pptx_entries.append(entry)
+    pptx_list = "\n".join(pptx_entries)
     
     prompt = f"""あなたはドキュメント整理の専門家です。以下のタスクを実行してください。
 
 ## タスク
-PDFの審査基準カテゴリと、PPTXのスライドグループタイトルを意味的にマッチングしてください。
-同じトピックや関連する内容を扱っているものをペアにしてください。
+PDFの審査基準（大項目と小項目）と、PPTXのスライドグループを意味的にマッチングしてください。
+**大項目だけでなく、小項目の内容も考慮して** 最も関連性の高いスライドグループを選んでください。
 
-## PDFカテゴリ一覧
+## PDFカテゴリ一覧（大項目と小項目）
 {pdf_list}
 
-## PPTXスライドグループ一覧
+## PPTXスライドグループ一覧（タイトルと内容）
 {pptx_list}
 
+## マッチングのルール
+1. 大項目のテーマに最も近いスライドグループを選ぶ
+2. 小項目の詳細内容も考慮して判断する
+3. 表現が違っても同じトピックならマッチさせる
+4. 1つのPPTXグループは1つのPDFカテゴリにのみマッチさせる
+
 ## 出力形式
-JSON形式で出力してください。PDFのNo（数字）をキー、PPTXのインデックス（数字）を値としてください。
-マッチするものがない場合は-1としてください。
+JSON形式で出力。PDFのNo（数字）をキー、PPTXのインデックス（数字）を値とする。
+マッチなしは-1。
 
-例:
-{{"1": 3, "2": 5, "3": -1, "4": 7}}
+例: {{"1": 3, "2": 5, "3": -1, "4": 7}}
 
-## 注意
-- 意味的に最も近いものをマッチさせてください
-- 表現が違っても同じトピックならマッチさせてください
-- 1つのPPTXグループは1つのPDFカテゴリにのみマッチさせてください
-- 必ずJSON形式のみを出力してください（説明は不要）
+必ずJSON形式のみを出力してください（説明は不要）。
 
 出力:"""
 
@@ -366,33 +443,82 @@ JSON形式で出力してください。PDFのNo（数字）をキー、PPTXの�
 # Main Processing
 # ============================================================================
 def populate_toc(prs, categories: List[Dict], toc_slide_index: int = 1):
-    """目次スライドに審査基準カテゴリを入力"""
+    """
+    目次スライドに審査基準カテゴリを階層構造で入力
+    大項目は太字、小項目はインデントして表示
+    """
+    from pptx.util import Pt
+    from pptx.dml.color import RGBColor
+    
     logger.info(f"目次スライド（インデックス {toc_slide_index}）にカテゴリを入力中...")
     
     try:
         toc_slide = prs.slides[toc_slide_index]
         
-        # 目次用テキストを作成（番号 + カテゴリ名）
-        toc_text = "\n".join([f"{cat['No']}. {cat['Category']}" for cat in categories])
+        # テンプレートの目次用テキストボックスを探す（最も大きいテキストフレーム）
+        target_shape = None
+        max_area = 0
         
-        # テキストフレームを持つシェイプを探して更新
         for shape in toc_slide.shapes:
             if shape.has_text_frame:
-                # 既存のテキストをチェック（数字のみの場合は目次と判定）
+                area = shape.width * shape.height
                 existing_text = shape.text_frame.text.strip()
-                if existing_text and (existing_text.isdigit() or re.match(r'^[\d\s\n]+$', existing_text)):
-                    # 目次と思われるフレームを更新
-                    shape.text_frame.clear()
-                    p = shape.text_frame.paragraphs[0]
-                    p.text = toc_text
-                    logger.info(f"  目次を更新しました: {len(categories)} 項目")
-                    return True
+                # タイトルやページ番号を除外（小さいテキストや数字のみ）
+                if len(existing_text) > 10 and area > max_area:
+                    max_area = area
+                    target_shape = shape
         
-        logger.warning("  目次用のテキストフレームが見つかりませんでした")
-        return False
+        if not target_shape:
+            logger.warning("  目次用のテキストフレームが見つかりませんでした")
+            return False
+        
+        # テキストフレームをクリア
+        tf = target_shape.text_frame
+        tf.clear()
+        
+        # 階層構造の目次を作成
+        for idx, cat in enumerate(categories):
+            # 大項目
+            if idx == 0:
+                p = tf.paragraphs[0]
+            else:
+                p = tf.add_paragraph()
+            
+            # 大項目の番号とタイトル
+            main_text = cat.get('MainCategory', cat.get('Category', ''))
+            p.text = f"{cat['No']}. {main_text}"
+            
+            # 大項目のフォーマット（太字）
+            for run in p.runs:
+                run.font.bold = True
+                run.font.size = Pt(11)
+            if not p.runs:
+                # テキストが直接設定された場合
+                p.font.bold = True
+                p.font.size = Pt(11)
+            
+            # 小項目を追加
+            sub_items = cat.get('SubItems', [])
+            for sub_item in sub_items[:3]:  # 最大3件の小項目を表示
+                sub_p = tf.add_paragraph()
+                sub_p.text = f"  ・ {sub_item[:40]}"  # インデント + 中点
+                sub_p.level = 1
+                
+                # 小項目のフォーマット（通常）
+                for run in sub_p.runs:
+                    run.font.bold = False
+                    run.font.size = Pt(9)
+                if not sub_p.runs:
+                    sub_p.font.bold = False
+                    sub_p.font.size = Pt(9)
+        
+        logger.info(f"  目次を更新しました: {len(categories)} 項目（階層構造）")
+        return True
         
     except Exception as e:
         logger.error(f"  目次入力エラー: {e}")
+        import traceback
+        traceback.print_exc()
         return False
 
 
@@ -436,6 +562,7 @@ def process_pptx(model, pdf_categories: List[Dict], pptx_path: str, output_path:
     for idx in range(FIXED_SLIDES, total_slides):
         slide = prs.slides[idx]
         title = get_slide_title(slide)
+        content = get_slide_full_content(slide)  # スライドの全内容を取得
         
         if title:
             if current_group:
@@ -443,17 +570,21 @@ def process_pptx(model, pdf_categories: List[Dict], pptx_path: str, output_path:
             current_group = {
                 'title': title,
                 'slides': [idx],
-                'first_index': idx
+                'first_index': idx,
+                'content': content  # AIマッチング用にコンテンツを追加
             }
         else:
             if current_group:
                 current_group['slides'].append(idx)
+                # コンテンツを累積
+                current_group['content'] = (current_group.get('content', '') + '\n' + content)[:500]
             else:
                 first_text = get_slide_first_text(slide)
                 current_group = {
                     'title': first_text[:50] if first_text else f"[Untitled {idx}]",
                     'slides': [idx],
-                    'first_index': idx
+                    'first_index': idx,
+                    'content': content
                 }
     
     if current_group:
@@ -482,16 +613,17 @@ def process_pptx(model, pdf_categories: List[Dict], pptx_path: str, output_path:
     
     for cat in pdf_categories:
         pdf_no = cat['No']
+        main_cat = cat.get('MainCategory', cat.get('Category', ''))
         if pdf_no in mapping:
             pptx_idx = mapping[pdf_no]
             if pptx_idx < len(groups):
                 group = groups[pptx_idx]
-                logger.info(f"  ✓ PDF[{pdf_no}] '{cat['Category'][:30]}...'")
+                logger.info(f"  ✓ PDF[{pdf_no}] '{main_cat[:30]}...'")
                 logger.info(f"    → PPTX '{group['title'][:40]}...' ({len(group['slides'])} slides)")
-                matched_list.append((pdf_no, cat['Category'], group))
+                matched_list.append((pdf_no, main_cat, group))
                 used_groups.add(pptx_idx)
         else:
-            logger.info(f"  ✗ PDF[{pdf_no}] '{cat['Category'][:30]}...' - マッチなし")
+            logger.info(f"  ✗ PDF[{pdf_no}] '{main_cat[:30]}...' - マッチなし")
     
     # 未使用グループ
     unused_groups = [g for i, g in enumerate(groups) if i not in used_groups]

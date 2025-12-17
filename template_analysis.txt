@@ -1,0 +1,1007 @@
+テンプレートを分析: template.pptx
+総スライド数: 71
+
+============================================================
+スライド 1
+============================================================
+
+  Shape 0: PICTURE
+    ID: 9
+    Name: 図 8
+    Position: Left=0, Top=2620828, Width=7559675, Height=4248324
+
+  Shape 1: PLACEHOLDER
+    ID: 3
+    Name: スライド番号プレースホルダー 2
+    Position: Left=3395949, Top=10311222, Width=599333, Height=281664
+    HasTextFrame: True
+    Text: '0'
+    NumParagraphs: 1
+      Para0: '0'
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 2: TEXT_BOX
+    ID: 6
+    Name: コンテンツ プレースホルダ 1
+    Position: Left=755650, Top=4441303, Width=6516688, Height=765851
+    HasTextFrame: True
+    Text: '○○○○○○○○○○　様\n院内保育所運営業務委託に関する企画提案書'
+    NumParagraphs: 2
+      Para0: '○○○○○○○○○○　様'
+        Font: Bold=None, Size=None
+        Level: 0
+      Para1: '院内保育所運営業務委託に関する企画提案書'
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 3: TEXT_BOX
+    ID: 7
+    Name: コンテンツ プレースホルダ 1
+    Position: Left=755650, Top=9232843, Width=6516688, Height=793807
+    HasTextFrame: True
+    Text: '栃木県宇都宮市中河原町3-19 宇都宮セントラルビル８F\n株式会社キッズコーポレーション\n代表取締役　釜野　晋史'
+    NumParagraphs: 3
+      Para0: '栃木県宇都宮市中河原町3-19 宇都宮セントラルビル８F'
+        Font: Bold=None, Size=None
+        Level: 0
+      Para1: '株式会社キッズコーポレーション'
+        Font: Bold=None, Size=None
+        Level: 0
+      Para2: '代表取締役　釜野　晋史'
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 4: PICTURE
+    ID: 8
+    Name: 図 7
+    Position: Left=2992515, Top=8531149, Width=2042958, Height=520398
+
+  Shape 5: AUTO_SHAPE
+    ID: 10
+    Name: 片側の 2 つの角を丸めた四角形 9
+    Position: Left=-731696, Top=1690527, Width=2541235, Height=1077844
+    HasTextFrame: True
+    Text: ''
+    NumParagraphs: 1
+      Para0: ''
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 6: AUTO_SHAPE
+    ID: 11
+    Name: 片側の 2 つの角を丸めた四角形 10
+    Position: Left=6346928, Top=5868544, Width=1733447, Height=735227
+    HasTextFrame: True
+    Text: ''
+    NumParagraphs: 1
+      Para0: ''
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 7: AUTO_SHAPE
+    ID: 12
+    Name: 片側の 2 つの角を丸めた四角形 11
+    Position: Left=-1428955, Top=7415961, Width=3245836, Height=387928
+    HasTextFrame: True
+    Text: ''
+    NumParagraphs: 1
+      Para0: ''
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 8: AUTO_SHAPE
+    ID: 13
+    Name: 片側の 2 つの角を丸めた四角形 12
+    Position: Left=6705355, Top=7691294, Width=1230088, Height=521732
+    HasTextFrame: True
+    Text: ''
+    NumParagraphs: 1
+      Para0: ''
+        Font: Bold=None, Size=None
+        Level: 0
+
+============================================================
+スライド 2
+============================================================
+
+  Shape 0: PLACEHOLDER
+    ID: 3
+    Name: スライド番号プレースホルダー 2
+    Position: Left=3395949, Top=10311222, Width=599333, Height=281664
+    HasTextFrame: True
+    Text: '1'
+    NumParagraphs: 1
+      Para0: '1'
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 1: AUTO_SHAPE
+    ID: 10
+    Name: 片側の 2 つの角を丸めた四角形 9
+    Position: Left=570739, Top=248559, Width=495935, Height=1637414
+    HasTextFrame: True
+    Text: ''
+    NumParagraphs: 1
+      Para0: ''
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 2: TEXT_BOX
+    ID: 2
+    Name: コンテンツ プレースホルダ 1
+    Position: Left=1796026, Top=881063, Width=2995894, Height=327910
+    HasTextFrame: True
+    Text: '提案内容　目次'
+    NumParagraphs: 1
+      Para0: '提案内容　目次'
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 3: TEXT_BOX
+    ID: 4
+    Name: コンテンツ プレースホルダ 1
+    Position: Left=765880, Top=1500992, Width=5155950, Height=9048631
+    HasTextFrame: True
+    Text: '受託者の概要および運営実績受託者の概要について保育園の運営実績について\n保育園運営に対する基本的事項経営理念、運営方針等について保育理念、目標等について\n保育内容法令、厚労省通知に基づいた保育内容について                                      保育計画について１日の保育の流れ、年間の行事計画について\n特別保育への対応について延長保育に関する考え方について　　　　　　　　　　　　　　　　　　夜間保育に関する考え方について　　　　　　　　　　　　　　　　　　一時保育に関する考え方について　　　　　　　　　　　　　　　　　　　　　　　　　病児保育に関する考え方について学童保育について\n給食、おやつ給食に対する考え方、調理、配食、アレルギーに対する対応についておやつについて\n健康管理、衛生管理園児および職員に対する健康管理について保育園の衛生管理について\n安全管理事故、災害発生の予防、防止策について事故、災害発生時の対応について\n保護者様との連絡調整保護者様との連絡、連携方法について苦情解決について個人情報の保護について\n職'
+    NumParagraphs: 12
+      Para0: '受託者の概要および運営実績受託者の概要について保育園の運営実績について'
+        Font: Bold=None, Size=None
+        Level: 0
+      Para1: '保育園運営に対する基本的事項経営理念、運営方針等について保育理念、目標等について'
+        Font: Bold=None, Size=None
+        Level: 0
+      Para2: '保育内容法令、厚労省通知に基づいた保育内容について                                      保育計画について１日の保育の流れ、年間の行事計画について'
+        Font: Bold=None, Size=None
+        Level: 0
+      Para3: '特別保育への対応について延長保育に関する考え方について　　　　　　　　　　　　　　　　　　夜間保育に関する考え方について　　　　　　　　　　　　　　　　　　一時保育に関する考え方について　　　　　　　　　　　　　　　　　　　　　　　　　病児保育に関する考え方について学童保育について'
+        Font: Bold=None, Size=None
+        Level: 0
+      Para4: '給食、おやつ給食に対する考え方、調理、配食、アレルギーに対する対応についておやつについて'
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 4: TEXT_BOX
+    ID: 5
+    Name: コンテンツ プレースホルダ 1
+    Position: Left=6148887, Top=1500992, Width=644908, Height=9233297
+    HasTextFrame: True
+    Text: 'P.00P.00\nP.00P.00\nP.00P.00 P.00\nP.00P.00P.00　P.00　P.00\n　　　　P.00P.00　\n　　　P.00P.00　\n　　　P.00P.00　\n　　　P.00P.00P.00　\n　　　P.00P.00P.00　\n　　　P.00P.00P.00　　　　\nP.00　　　\nP.00'
+    NumParagraphs: 12
+      Para0: 'P.00P.00'
+        Font: Bold=None, Size=None
+        Level: 0
+      Para1: 'P.00P.00'
+        Font: Bold=None, Size=None
+        Level: 0
+      Para2: 'P.00P.00 P.00'
+        Font: Bold=None, Size=None
+        Level: 0
+      Para3: 'P.00P.00P.00　P.00　P.00'
+        Font: Bold=None, Size=None
+        Level: 0
+      Para4: '　　　　P.00P.00　'
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 5: LINE
+    ID: 15
+    Name: 直線コネクタ 14
+    Position: Left=2623457, Top=1752600, Width=3396343, Height=0
+
+  Shape 6: LINE
+    ID: 16
+    Name: 直線コネクタ 15
+    Position: Left=2851200, Top=1947000, Width=3168600, Height=0
+
+  Shape 7: LINE
+    ID: 18
+    Name: 直線コネクタ 17
+    Position: Left=3175200, Top=2458200, Width=2844600, Height=0
+
+  Shape 8: LINE
+    ID: 20
+    Name: 直線コネクタ 19
+    Position: Left=2851200, Top=2652600, Width=3168600, Height=0
+
+  Shape 9: LINE
+    ID: 22
+    Name: 直線コネクタ 21
+    Position: Left=4269600, Top=3171000, Width=1750200, Height=0
+
+  Shape 10: LINE
+    ID: 24
+    Name: 直線コネクタ 23
+    Position: Left=2296800, Top=3358200, Width=3723000, Height=0
+
+  Shape 11: LINE
+    ID: 26
+    Name: 直線コネクタ 25
+    Position: Left=3293973, Top=4042120, Width=2725827, Height=0
+
+  Shape 12: LINE
+    ID: 28
+    Name: 直線コネクタ 27
+    Position: Left=3293973, Top=4225080, Width=2725827, Height=0
+
+  Shape 13: LINE
+    ID: 29
+    Name: 直線コネクタ 28
+    Position: Left=3293973, Top=4429640, Width=2725827, Height=0
+
+  Shape 14: LINE
+    ID: 30
+    Name: 直線コネクタ 29
+    Position: Left=3293973, Top=4597940, Width=2725827, Height=0
+
+  Shape 15: LINE
+    ID: 32
+    Name: 直線コネクタ 31
+    Position: Left=5760720, Top=5307806, Width=259080, Height=0
+
+  Shape 16: LINE
+    ID: 34
+    Name: 直線コネクタ 33
+    Position: Left=2164080, Top=5496580, Width=3863200, Height=0
+
+  Shape 17: LINE
+    ID: 36
+    Name: 直線コネクタ 35
+    Position: Left=3995282, Top=6003400, Width=2063678, Height=0
+
+  Shape 18: LINE
+    ID: 38
+    Name: 直線コネクタ 37
+    Position: Left=2851200, Top=6176360, Width=3207760, Height=0
+
+  Shape 19: LINE
+    ID: 40
+    Name: 直線コネクタ 39
+    Position: Left=3343855, Top=6871980, Width=2627857, Height=0
+
+  Shape 20: LINE
+    ID: 42
+    Name: 直線コネクタ 41
+    Position: Left=3639060, Top=7388260, Width=2365360, Height=0
+
+  Shape 21: LINE
+    ID: 44
+    Name: 直線コネクタ 43
+    Position: Left=2216620, Top=7591540, Width=3787800, Height=0
+
+  Shape 22: LINE
+    ID: 46
+    Name: 直線コネクタ 45
+    Position: Left=2678400, Top=7766040, Width=3341400, Height=0
+
+  Shape 23: LINE
+    ID: 48
+    Name: 直線コネクタ 47
+    Position: Left=2249460, Top=8281900, Width=3787800, Height=0
+
+  Shape 24: LINE
+    ID: 50
+    Name: 直線コネクタ 49
+    Position: Left=5162160, Top=8458520, Width=875100, Height=0
+
+  Shape 25: LINE
+    ID: 52
+    Name: 直線コネクタ 51
+    Position: Left=3041560, Top=8674080, Width=3017400, Height=0
+
+  Shape 26: LINE
+    ID: 54
+    Name: 直線コネクタ 53
+    Position: Left=2563200, Top=9159460, Width=3456600, Height=0
+
+  Shape 27: LINE
+    ID: 56
+    Name: 直線コネクタ 55
+    Position: Left=3924300, Top=9341580, Width=2095500, Height=0
+
+  Shape 28: LINE
+    ID: 58
+    Name: 直線コネクタ 57
+    Position: Left=2297960, Top=9549100, Width=3723000, Height=0
+
+  Shape 29: LINE
+    ID: 60
+    Name: 直線コネクタ 59
+    Position: Left=3343855, Top=9872515, Width=2675945, Height=0
+
+  Shape 30: LINE
+    ID: 6
+    Name: 直線コネクタ 5
+    Position: Left=3639060, Top=10203746, Width=2398200, Height=0
+
+  Shape 31: LINE
+    ID: 7
+    Name: 直線コネクタ 6
+    Position: Left=4175760, Top=3558993, Width=1844040, Height=0
+
+  Shape 32: LINE
+    ID: 9
+    Name: 直線コネクタ 8
+    Position: Left=2258686, Top=4780820, Width=3761114, Height=0
+
+  Shape 33: LINE
+    ID: 33
+    Name: 直線コネクタ 32
+    Position: Left=3779837, Top=6689100, Width=2191875, Height=0
+
+============================================================
+スライド 3
+============================================================
+
+  Shape 0: PLACEHOLDER
+    ID: 203
+    Name: タイトル 202
+    Position: Left=1326720, Top=504406, Width=6160770, Height=369332
+    HasTextFrame: True
+    Text: '受託者の概要について（会社概要）'
+    NumParagraphs: 1
+      Para0: '受託者の概要について（会社概要）'
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 1: PLACEHOLDER
+    ID: 4
+    Name: スライド番号プレースホルダー 3
+    Position: Left=3546214, Top=10177247, Width=467780, Height=234531
+    HasTextFrame: True
+    Text: '2'
+    NumParagraphs: 1
+      Para0: '2'
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 2: PLACEHOLDER
+    ID: 204
+    Name: テキスト プレースホルダー 203
+    Position: Left=1111250, Top=276599, Width=5279276, Height=276999
+    HasTextFrame: True
+    Text: '① 受託者の概要および運営実績'
+    NumParagraphs: 1
+      Para0: '① 受託者の概要および運営実績'
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 3: TABLE
+    ID: 2
+    Name: 表 1
+    Position: Left=755650, Top=1025526, Width=6516688, Height=9001123
+
+  Shape 4: LINE
+    ID: 6
+    Name: 直線コネクタ 5
+    Position: Left=2268318, Top=4556844, Width=1884372, Height=0
+
+============================================================
+スライド 4
+============================================================
+
+  Shape 0: PLACEHOLDER
+    ID: 66
+    Name: タイトル 65
+    Position: Left=1326720, Top=504406, Width=6160770, Height=369332
+    HasTextFrame: True
+    Text: '保育園の運営実績について'
+    NumParagraphs: 1
+      Para0: '保育園の運営実績について'
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 1: PLACEHOLDER
+    ID: 4
+    Name: スライド番号プレースホルダー 3
+    Position: Left=3546214, Top=10177247, Width=467780, Height=234531
+    HasTextFrame: True
+    Text: '3'
+    NumParagraphs: 1
+      Para0: '3'
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 2: PLACEHOLDER
+    ID: 67
+    Name: テキスト プレースホルダー 66
+    Position: Left=1111250, Top=276599, Width=5279276, Height=276999
+    HasTextFrame: True
+    Text: '① 受託者の概要および運営実績'
+    NumParagraphs: 1
+      Para0: '① 受託者の概要および運営実績'
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 3: TEXT_BOX
+    ID: 3
+    Name: コンテンツ プレースホルダ 1
+    Position: Left=541494, Top=1008991, Width=6748056, Height=524631
+    HasTextFrame: True
+    Text: '全国336施設運営しています'
+    NumParagraphs: 1
+      Para0: '全国336施設運営しています'
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 4: TEXT_BOX
+    ID: 44
+    Name: コンテンツ プレースホルダ 1
+    Position: Left=746048, Top=8177061, Width=6516688, Height=490071
+    HasTextFrame: True
+    Text: '受託施設として315施設、うち251施設が病院内保育園となっております。\nまた以下のとおり、法人様からのご要望によりさまざまな対応を行っております。'
+    NumParagraphs: 2
+      Para0: '受託施設として315施設、うち251施設が病院内保育園となっております。'
+        Font: Bold=None, Size=None
+        Level: 0
+      Para1: 'また以下のとおり、法人様からのご要望によりさまざまな対応を行っております。'
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 5: GROUP
+    ID: 50
+    Name: グループ化 49
+    Position: Left=738666, Top=8893262, Width=6912184, Height=1152873
+
+  Shape 6: TEXT_BOX
+    ID: 57
+    Name: テキスト ボックス 12
+    Position: Left=5514657, Top=4421684, Width=1366546, Height=485952
+    HasTextFrame: True
+    Text: '東北28施設'
+    NumParagraphs: 1
+      Para0: '東北28施設'
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 7: GROUP
+    ID: 65
+    Name: グループ化 64
+    Position: Left=281357, Top=1719135, Width=3859187, Height=2038048
+
+  Shape 8: GROUP
+    ID: 88
+    Name: グループ化 87
+    Position: Left=4571344, Top=5341742, Width=687461, Height=788495
+
+  Shape 9: FREEFORM
+    ID: 22
+    Name: フリーフォーム 21
+    Position: Left=4960516, Top=2215458, Width=1653805, Height=1594654
+    HasTextFrame: True
+    Text: ''
+    NumParagraphs: 1
+      Para0: ''
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 10: GROUP
+    ID: 86
+    Name: グループ化 85
+    Position: Left=4792649, Top=3774054, Width=787032, Height=1694679
+
+  Shape 11: FREEFORM
+    ID: 29
+    Name: フリーフォーム 28
+    Position: Left=4367987, Top=4852486, Width=619173, Height=634617
+    HasTextFrame: True
+    Text: ''
+    NumParagraphs: 1
+      Para0: ''
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 12: FREEFORM
+    ID: 30
+    Name: フリーフォーム 29
+    Position: Left=4526724, Top=4925023, Width=98613, Height=190644
+    HasTextFrame: True
+    Text: ''
+    NumParagraphs: 1
+      Para0: ''
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 13: FREEFORM
+    ID: 31
+    Name: フリーフォーム 30
+    Position: Left=4296183, Top=5386599, Width=369401, Height=635432
+    HasTextFrame: True
+    Text: ''
+    NumParagraphs: 1
+      Para0: ''
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 14: FREEFORM
+    ID: 32
+    Name: フリーフォーム 31
+    Position: Left=4518643, Top=5766954, Width=263496, Height=264106
+    HasTextFrame: True
+    Text: ''
+    NumParagraphs: 1
+      Para0: ''
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 15: FREEFORM
+    ID: 33
+    Name: フリーフォーム 32
+    Position: Left=4129169, Top=5404399, Width=274354, Height=248054
+    HasTextFrame: True
+    Text: ''
+    NumParagraphs: 1
+      Para0: ''
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 16: FREEFORM
+    ID: 34
+    Name: フリーフォーム 33
+    Position: Left=4004392, Top=5584122, Width=368055, Height=455391
+    HasTextFrame: True
+    Text: ''
+    NumParagraphs: 1
+      Para0: ''
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 17: FREEFORM
+    ID: 35
+    Name: フリーフォーム 34
+    Position: Left=3987745, Top=5205043, Width=309692, Height=519170
+    HasTextFrame: True
+    Text: ''
+    NumParagraphs: 1
+      Para0: ''
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 18: FREEFORM
+    ID: 36
+    Name: フリーフォーム 35
+    Position: Left=4321790, Top=5869744, Width=471173, Height=360946
+    HasTextFrame: True
+    Text: ''
+    NumParagraphs: 1
+      Para0: ''
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 19: FREEFORM
+    ID: 37
+    Name: フリーフォーム 36
+    Position: Left=4102226, Top=5956894, Width=299625, Height=273261
+    HasTextFrame: True
+    Text: ''
+    NumParagraphs: 1
+      Para0: ''
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 20: FREEFORM
+    ID: 39
+    Name: フリーフォーム 38
+    Position: Left=3764203, Top=5640980, Width=382279, Height=337089
+    HasTextFrame: True
+    Text: ''
+    NumParagraphs: 1
+      Para0: ''
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 21: GROUP
+    ID: 89
+    Name: グループ化 88
+    Position: Left=3438973, Top=5822427, Width=727490, Height=788249
+
+  Shape 22: FREEFORM
+    ID: 68
+    Name: フリーフォーム 67
+    Position: Left=3130101, Top=5874893, Width=380513, Height=193456
+    HasTextFrame: True
+    Text: ''
+    NumParagraphs: 1
+      Para0: ''
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 23: FREEFORM
+    ID: 69
+    Name: フリーフォーム 68
+    Position: Left=3174543, Top=5976173, Width=311403, Height=299039
+    HasTextFrame: True
+    Text: ''
+    NumParagraphs: 1
+      Para0: ''
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 24: FREEFORM
+    ID: 70
+    Name: フリーフォーム 69
+    Position: Left=2731715, Top=5898875, Width=451648, Height=422524
+    HasTextFrame: True
+    Text: ''
+    NumParagraphs: 1
+      Para0: ''
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 25: FREEFORM
+    ID: 71
+    Name: フリーフォーム 70
+    Position: Left=2831519, Top=6064128, Width=404939, Height=302035
+    HasTextFrame: True
+    Text: ''
+    NumParagraphs: 1
+      Para0: ''
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 26: FREEFORM
+    ID: 72
+    Name: フリーフォーム 71
+    Position: Left=2505828, Top=6201619, Width=380598, Height=282113
+    HasTextFrame: True
+    Text: ''
+    NumParagraphs: 1
+      Para0: ''
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 27: FREEFORM
+    ID: 73
+    Name: フリーフォーム 72
+    Position: Left=2847437, Top=6384114, Width=444639, Height=400668
+    HasTextFrame: True
+    Text: ''
+    NumParagraphs: 1
+      Para0: ''
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 28: FREEFORM
+    ID: 74
+    Name: フリーフォーム 73
+    Position: Left=2988853, Top=6474733, Width=478176, Height=384027
+    HasTextFrame: True
+    Text: ''
+    NumParagraphs: 1
+      Para0: ''
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 29: FREEFORM
+    ID: 75
+    Name: フリーフォーム 74
+    Position: Left=3258013, Top=6302486, Width=243611, Height=126677
+    HasTextFrame: True
+    Text: ''
+    NumParagraphs: 1
+      Para0: ''
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 30: FREEFORM
+    ID: 76
+    Name: フリーフォーム 75
+    Position: Left=3279520, Top=6347640, Width=293073, Height=235883
+    HasTextFrame: True
+    Text: ''
+    NumParagraphs: 1
+      Para0: ''
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 31: FREEFORM
+    ID: 77
+    Name: フリーフォーム 76
+    Position: Left=2297990, Top=6452251, Width=301841, Height=331450
+    HasTextFrame: True
+    Text: ''
+    NumParagraphs: 1
+      Para0: ''
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 32: FREEFORM
+    ID: 78
+    Name: フリーフォーム 77
+    Position: Left=2502264, Top=6528981, Width=327802, Height=318570
+    HasTextFrame: True
+    Text: ''
+    NumParagraphs: 1
+      Para0: ''
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 33: FREEFORM
+    ID: 79
+    Name: フリーフォーム 78
+    Position: Left=2207396, Top=6573936, Width=215694, Height=199932
+    HasTextFrame: True
+    Text: ''
+    NumParagraphs: 1
+      Para0: ''
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 34: FREEFORM
+    ID: 80
+    Name: フリーフォーム 79
+    Position: Left=2148617, Top=6638096, Width=235333, Height=276823
+    HasTextFrame: True
+    Text: ''
+    NumParagraphs: 1
+      Para0: ''
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 35: FREEFORM
+    ID: 81
+    Name: フリーフォーム 80
+    Position: Left=2369987, Top=6692446, Width=256386, Height=383480
+    HasTextFrame: True
+    Text: ''
+    NumParagraphs: 1
+      Para0: ''
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 36: FREEFORM
+    ID: 82
+    Name: フリーフォーム 81
+    Position: Left=2343545, Top=6927929, Width=53096, Height=45257
+    HasTextFrame: True
+    Text: ''
+    NumParagraphs: 1
+      Para0: ''
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 37: FREEFORM
+    ID: 83
+    Name: フリーフォーム 82
+    Position: Left=2263507, Top=6917985, Width=71714, Height=118643
+    HasTextFrame: True
+    Text: ''
+    NumParagraphs: 1
+      Para0: ''
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 38: FREEFORM
+    ID: 84
+    Name: フリーフォーム 83
+    Position: Left=2467295, Top=6809925, Width=335076, Height=490677
+    HasTextFrame: True
+    Text: ''
+    NumParagraphs: 1
+      Para0: ''
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 39: FREEFORM
+    ID: 85
+    Name: フリーフォーム 84
+    Position: Left=2298815, Top=7044320, Width=302745, Height=373928
+    HasTextFrame: True
+    Text: ''
+    NumParagraphs: 1
+      Para0: ''
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 40: FREEFORM
+    ID: 93
+    Name: フリーフォーム 92
+    Position: Left=1491620, Top=7054536, Width=428275, Height=431504
+    HasTextFrame: True
+    Text: ''
+    NumParagraphs: 1
+      Para0: ''
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 41: FREEFORM
+    ID: 94
+    Name: フリーフォーム 93
+    Position: Left=1171418, Top=7500223, Width=249777, Height=285366
+    HasTextFrame: True
+    Text: ''
+    NumParagraphs: 1
+      Para0: ''
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 42: FREEFORM
+    ID: 95
+    Name: フリーフォーム 94
+    Position: Left=1211580, Top=6863715, Width=817245, Height=954405
+    HasTextFrame: True
+    Text: ''
+    NumParagraphs: 1
+      Para0: ''
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 43: TEXT_BOX
+    ID: 96
+    Name: テキスト ボックス 12
+    Position: Left=5883605, Top=3462475, Width=1366546, Height=485952
+    HasTextFrame: True
+    Text: '北海道12施設'
+    NumParagraphs: 1
+      Para0: '北海道12施設'
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 44: TEXT_BOX
+    ID: 97
+    Name: テキスト ボックス 12
+    Position: Left=5200332, Top=5798999, Width=1366546, Height=485952
+    HasTextFrame: True
+    Text: '関東131施設'
+    NumParagraphs: 1
+      Para0: '関東131施設'
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 45: TEXT_BOX
+    ID: 98
+    Name: テキスト ボックス 12
+    Position: Left=3335040, Top=4703664, Width=1366546, Height=485952
+    HasTextFrame: True
+    Text: '中部48施設'
+    NumParagraphs: 1
+      Para0: '中部48施設'
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 46: TEXT_BOX
+    ID: 99
+    Name: テキスト ボックス 12
+    Position: Left=2202484, Top=5507258, Width=1366546, Height=485952
+    HasTextFrame: True
+    Text: '中国13施設'
+    NumParagraphs: 1
+      Para0: '中国13施設'
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 47: TEXT_BOX
+    ID: 100
+    Name: テキスト ボックス 12
+    Position: Left=3792555, Top=6437082, Width=1366546, Height=485952
+    HasTextFrame: True
+    Text: '関西70施設'
+    NumParagraphs: 1
+      Para0: '関西70施設'
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 48: TEXT_BOX
+    ID: 101
+    Name: テキスト ボックス 12
+    Position: Left=2647448, Top=6792089, Width=1366546, Height=485952
+    HasTextFrame: True
+    Text: '四国12施設'
+    NumParagraphs: 1
+      Para0: '四国12施設'
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 49: TEXT_BOX
+    ID: 102
+    Name: テキスト ボックス 12
+    Position: Left=1117935, Top=6219912, Width=1366546, Height=485952
+    HasTextFrame: True
+    Text: '九州17施設'
+    NumParagraphs: 1
+      Para0: '九州17施設'
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 50: TEXT_BOX
+    ID: 103
+    Name: テキスト ボックス 12
+    Position: Left=1775160, Top=7402917, Width=1366546, Height=485952
+    HasTextFrame: True
+    Text: '沖縄5施設'
+    NumParagraphs: 1
+      Para0: '沖縄5施設'
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 51: TEXT_BOX
+    ID: 6
+    Name: コンテンツ プレースホルダ 1
+    Position: Left=887933, Top=2903744, Width=1373606, Height=180370
+    HasTextFrame: True
+    Text: '※大学7施設含む'
+    NumParagraphs: 1
+      Para0: '※大学7施設含む'
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 52: GROUP
+    ID: 1040
+    Name: グループ化 1039
+    Position: Left=432786, Top=4040529, Width=2842281, Height=1650086
+
+============================================================
+スライド 5
+============================================================
+
+  Shape 0: PLACEHOLDER
+    ID: 4
+    Name: スライド番号プレースホルダー 3
+    Position: Left=3545947, Top=10162816, Width=467780, Height=261344
+    HasTextFrame: True
+    Text: '4'
+    NumParagraphs: 1
+      Para0: '4'
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 1: TABLE
+    ID: 17
+    Name: Group 55
+    Position: Left=797129, Top=250714, Width=6516689, Height=265135
+
+  Shape 2: TABLE
+    ID: 18
+    Name: Group 55
+    Position: Left=797129, Top=1498571, Width=6516689, Height=265135
+
+  Shape 3: TABLE
+    ID: 19
+    Name: Group 55
+    Position: Left=797129, Top=2757347, Width=6516689, Height=265135
+
+  Shape 4: TEXT_BOX
+    ID: 20
+    Name: コンテンツ プレースホルダ 1
+    Position: Left=4653915, Top=6772012, Width=2659903, Height=249414
+    HasTextFrame: True
+    Text: '※全国の実績は、別添資料「運営実績」を参照'
+    NumParagraphs: 1
+      Para0: '※全国の実績は、別添資料「運営実績」を参照'
+        Font: Bold=None, Size=None
+        Level: 0
+
+  Shape 5: TABLE
+    ID: 21
+    Name: 表 20
+    Position: Left=808223, Top=619624, Width=6505595, Height=726060
+
+  Shape 6: TABLE
+    ID: 22
+    Name: 表 21
+    Position: Left=808223, Top=1857855, Width=6505595, Height=726060
+
+  Shape 7: TABLE
+    ID: 23
+    Name: 表 22
+    Position: Left=808223, Top=3116631, Width=6505595, Height=726060
+
+  Shape 8: TABLE
+    ID: 5
+    Name: Group 55
+    Position: Left=797129, Top=4016123, Width=6516689, Height=265135
+
+  Shape 9: TABLE
+    ID: 6
+    Name: Group 55
+    Position: Left=797129, Top=5345906, Width=6516689, Height=265135
+
+  Shape 10: TABLE
+    ID: 7
+    Name: 表 6
+    Position: Left=808223, Top=4453862, Width=6505595, Height=726060
+
+  Shape 11: TABLE
+    ID: 8
+    Name: 表 7
+    Position: Left=797129, Top=5753747, Width=6505595, Height=726060
