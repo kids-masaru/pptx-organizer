@@ -629,7 +629,8 @@ if criteria_file and template_to_use:
             # カテゴリ一覧表示
             with st.expander("📋 抽出されたカテゴリ一覧"):
                 for cat in categories:
-                    st.write(f"{cat['No']}. {cat['Category']}")
+                    main_cat = cat.get('MainCategory', cat.get('Category', ''))
+                    st.write(f"{cat['No']}. {main_cat}")
                     
         except Exception as e:
             st.error(f"エラーが発生しました: {e}")
