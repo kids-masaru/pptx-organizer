@@ -506,8 +506,8 @@ def process_pptx(model, categories, pptx_bytes, progress_callback=None) -> bytes
 # ============================================================================
 # Template Management
 # ============================================================================
-# 永続的に保存されるテンプレートファイル
-TEMPLATE_PATH = Path(__file__).parent / "【標準提案資料】2025-10-3「アプリ用」.pptx"
+# 永続的に保存されるテンプレートファイル（ASCII名でエンコーディング問題を回避）
+TEMPLATE_PATH = Path(__file__).parent / "master_template.pptx"
 
 def get_saved_template() -> bytes:
     """保存されたテンプレートを取得"""
